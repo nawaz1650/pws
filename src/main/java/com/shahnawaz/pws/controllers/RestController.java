@@ -7,6 +7,7 @@ import com.shahnawaz.pws.export.Orders;
 import com.shahnawaz.pws.export.OrdersAdminExport;
 import com.shahnawaz.pws.jwtFilter.JwtUtil;
 import com.shahnawaz.pws.repos.OrderRepo;
+import com.shahnawaz.pws.repos.RoleRepo;
 import com.shahnawaz.pws.repos.UserRepo;
 import com.shahnawaz.pws.reqBodies.CreateOrderDTO;
 import com.shahnawaz.pws.reqBodies.GenerateOtpReq;
@@ -42,6 +43,8 @@ import java.util.Random;
 //@CrossOrigin("http://localhost:4200")
 @CrossOrigin(origins = "https://nawaz1650.github.io")
 public class RestController {
+    @Autowired
+    RoleRepo roleRepo;
     public static final String ACCOUNT_SID = System.getenv("account_sid");
     public static final String AUTH_TOKEN = System.getenv("auth_token");
     @Autowired
@@ -358,6 +361,18 @@ public class RestController {
         System.out.println(orders);
         return orders;
         //return null;
+    }
+
+    @GetMapping("/onetime")
+    public void onetime(){
+    PwsUser user=new PwsUser();
+    user.setMobile("7977956098");
+    Role role=new Role();
+    role.setRole_id(1);
+    user.setRoles((List<Role>) role);
+    user.setUser_id(1);
+        System.out.println(userRepo.save(user));
+
     }
 
 
