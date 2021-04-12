@@ -368,8 +368,13 @@ public class RestController {
     PwsUser user=new PwsUser();
     user.setMobile("7977956098");
     Role role=new Role();
+
     role.setRole_id(1);
-    user.setRoles((List<Role>) role);
+    role.setName("ADMIN");
+    List<Role> roles=new ArrayList<>();
+    roles.add(role);
+
+    user.setRoles(roles);
     user.setUser_id(1);
         System.out.println(userRepo.save(user));
 
