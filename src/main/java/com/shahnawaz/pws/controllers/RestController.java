@@ -39,8 +39,8 @@ import java.util.Random;
 
 
 @org.springframework.web.bind.annotation.RestController
-//@CrossOrigin("http://localhost:4200")
-@CrossOrigin(origins = "https://nawaz1650.github.io")
+@CrossOrigin("http://localhost:4200")
+//@CrossOrigin(origins = "https://nawaz1650.github.io")
 public class RestController {
     public static final String ACCOUNT_SID = System.getenv("account_sid");
     public static final String AUTH_TOKEN = System.getenv("auth_token");
@@ -71,24 +71,30 @@ public class RestController {
         String hashPassword= passwordEncoder.encode(otp);
 
         System.out.println(user1);
-        if(req.getMobile()==null)
+        if(req.getMobile()==null){
+            System.out.println("from line 75");
             throw new Exception("mobile number cannot be empty");
+        }
         if(user1==null) {
+            System.out.println("from line 79");
             PwsUser user = new PwsUser();
             user.setMobile(req.getMobile());
             user.setOtp(hashPassword);
             try {
                 userRepo.save(user);
             }catch(Exception e){
+                System.out.println("from line 86");
                 throw new Exception("error while saving order");
             }
 
         }
         else{
+            System.out.println("from line 92");
             user1.setOtp(hashPassword);
             try {
                 userRepo.save(user1);
             }catch (Exception e){
+                System.out.println("from line 97");
                 throw new Exception("exception while generating OTP");
             }
 
@@ -96,13 +102,24 @@ public class RestController {
 
 
 
-
+            String prefix="+91";
+        System.out.println("account_sid is "+System.getenv("account_sid"));
+        System.out.println("auth token is "+System.getenv("auth_token"));
             Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
-            Message message = Message.creator(new PhoneNumber(req.getMobile()),
-                    new PhoneNumber("+15206399497"),
-                    "This is your One time password to login to Patel Water supply system"+otp).create();
+        try {
+            Message message = Message.creator(
+                    new PhoneNumber(prefix + "" + req.getMobile()),new PhoneNumber("+15206399497"),
+                    "This is your One time password to login to Patel Water supply system " + otp).create();
+        }catch(Exception e){
+            System.out.println("from exception");
+            System.out.println(prefix + "" + req.getMobile());
+            System.out.println(e.getMessage());
+            System.out.println();
+            System.out.println(e.getStackTrace());
+            throw new Exception("exception in sending sms");
 
+        }
 
             return new SuccessRes("true");
     }
