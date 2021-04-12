@@ -43,8 +43,8 @@ import java.util.Random;
 //@CrossOrigin("http://localhost:4200")
 @CrossOrigin(origins = "https://nawaz1650.github.io")
 public class RestController {
-//    @Autowired
-//    RoleRepo roleRepo;
+    @Autowired
+    RoleRepo roleRepo;
     public static final String ACCOUNT_SID = System.getenv("account_sid");
     public static final String AUTH_TOKEN = System.getenv("auth_token");
     @Autowired
@@ -363,23 +363,23 @@ public class RestController {
         //return null;
     }
 
-//    @GetMapping("/onetime")
-//    public void onetime(){
-//    PwsUser user=new PwsUser();
-//    user.setMobile("7977956098");
-//    Role role=new Role();
-//
-////    role.setRole_id(2);
-//    role.setName("ADMIN");
-//    roleRepo.save(role);
-//    List<Role> roles=new ArrayList<>();
-//    roles.add(role);
-//
-//    user.setRoles(roles);
-////    user.setUser_id(1);
-//        System.out.println(userRepo.save(user));
-//
-//    }
+    @GetMapping("/onetime")
+    public void onetime(){
+    PwsUser user=new PwsUser();
+    user.setMobile("7977956098");
+    Role role=new Role();
+
+//    role.setRole_id(2);
+    role.setName("ADMIN");
+    roleRepo.save(role);
+    List<Role> roles=new ArrayList<>();
+    roles.add(role);
+
+    user.setRoles(roles);
+//    user.setUser_id(1);
+        System.out.println(userRepo.save(user));
+
+    }
 
 
 }
