@@ -371,6 +371,7 @@ public class RestController {
 
 //    role.setRole_id(2);
     role.setName("ADMIN");
+    roleRepo.save(role);
     List<Role> roles=new ArrayList<>();
     roles.add(role);
 
