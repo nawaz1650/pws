@@ -39,8 +39,8 @@ import java.util.Random;
 
 
 @org.springframework.web.bind.annotation.RestController
-@CrossOrigin("http://localhost:4200")
-//@CrossOrigin(origins = "https://nawaz1650.github.io")
+//@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = "https://nawaz1650.github.io")
 public class RestController {
     public static final String ACCOUNT_SID = System.getenv("account_sid");
     public static final String AUTH_TOKEN = System.getenv("auth_token");
