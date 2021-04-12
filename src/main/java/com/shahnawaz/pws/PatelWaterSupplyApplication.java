@@ -15,6 +15,8 @@ public class PatelWaterSupplyApplication {
 
 				Date date=new Date(1617906600000L);
 				System.out.println(date);
+
+		System.out.println(System.getenv("PATH"));
 		//pws.setName("shahnawaz");
 		//System.out.println(pws.getName());
 	}

@@ -15,6 +15,10 @@ import com.shahnawaz.pws.resBodies.JwtResponse;
 import com.shahnawaz.pws.resBodies.SuccessRes;
 import com.shahnawaz.pws.security.MyUserDetailService;
 
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+
+import com.twilio.type.PhoneNumber;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -35,8 +39,11 @@ import java.util.Random;
 
 
 @org.springframework.web.bind.annotation.RestController
-@CrossOrigin("http://localhost:4200")
+//@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = "https://nawaz1650.github.io")
 public class RestController {
+    public static final String ACCOUNT_SID = System.getenv("account_sid");
+    public static final String AUTH_TOKEN = System.getenv("auth_token");
     @Autowired
     AuthenticationManager authmanager;
     @Autowired
@@ -86,7 +93,18 @@ public class RestController {
             }
 
         }
-        return new SuccessRes("true");
+
+
+
+
+            Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+            Message message = Message.creator(new PhoneNumber(req.getMobile()),
+                    new PhoneNumber("+15206399497"),
+                    "This is your One time password to login to Patel Water supply system"+otp).create();
+
+
+            return new SuccessRes("true");
     }
 
 
