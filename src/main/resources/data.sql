@@ -3,8 +3,8 @@ INSERT INTO role(
 	VALUES (1, 'ADMIN');
 
 INSERT INTO pws_user(
-    	 created_date,mobile)
-    	VALUES (CURRENT_DATE,'7977956098');
+    	 user_id,created_date,mobile)
+    	VALUES (1,CURRENT_DATE,'7977956098');
 
 INSERT INTO user_role(
         	user_id, role_id)
