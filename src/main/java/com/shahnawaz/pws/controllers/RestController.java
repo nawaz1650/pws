@@ -369,13 +369,13 @@ public class RestController {
     user.setMobile("7977956098");
     Role role=new Role();
 
-    role.setRole_id(1);
+//    role.setRole_id(2);
     role.setName("ADMIN");
     List<Role> roles=new ArrayList<>();
     roles.add(role);
 
     user.setRoles(roles);
-    user.setUser_id(1);
+//    user.setUser_id(1);
         System.out.println(userRepo.save(user));
 
     }
