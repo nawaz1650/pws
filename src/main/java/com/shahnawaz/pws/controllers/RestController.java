@@ -121,9 +121,9 @@ public class RestController {
             Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
         try {
-//            Message message = Message.creator(
-//                    new PhoneNumber(prefix + "" + req.getMobile()),new PhoneNumber("+15206399497"),
-//                    "This is your One time password to login to Patel Water supply system " + otp).create();
+            Message message = Message.creator(
+                    new PhoneNumber(prefix + "" + req.getMobile()),new PhoneNumber("+15206399497"),
+                    "This is your One time password to login to Patel Water supply system " + otp).create();
         }catch(Exception e){
             System.out.println("from exception");
             System.out.println(prefix + "" + req.getMobile());
