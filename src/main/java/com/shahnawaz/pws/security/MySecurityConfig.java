@@ -35,7 +35,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 protected void configure(HttpSecurity http) throws Exception {
 	http.cors().and().csrf().disable().authorizeRequests().antMatchers("/ordersforadmin","/exportAdmin").hasAuthority("ADMIN")
-			.antMatchers("/generateOtp","/verifyOtp","/adminlogin","/onetime").permitAll()
+			.antMatchers("/generateOtp","/verifyOtp","/adminlogin","/onetime","/test").permitAll()
 	.anyRequest().authenticated().and().
 			exceptionHandling().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

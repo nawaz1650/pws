@@ -22,6 +22,7 @@ import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,7 +64,15 @@ public class RestController {
     @GetMapping("/test")
     public String test(){
         System.out.println("hi from test end point");
-        return "hi world";
+       // return "hi world";
+        RestTemplate restTemplate = new RestTemplate();
+        String fooResourceUrl
+                = "https://notification-node.herokuapp.com/api/sendnots";
+//        ResponseEntity<String> response
+//                = restTemplate.getForEntity(fooResourceUrl , String.class);
+        //System.out.println(response);
+        return "ok";
+
     }
     @PostMapping("/generateOtp")
     public SuccessRes generateOtp(@RequestBody GenerateOtpReq req) throws Exception {
@@ -111,9 +121,9 @@ public class RestController {
             Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
         try {
-            Message message = Message.creator(
-                    new PhoneNumber(prefix + "" + req.getMobile()),new PhoneNumber("+15206399497"),
-                    "This is your One time password to login to Patel Water supply system " + otp).create();
+//            Message message = Message.creator(
+//                    new PhoneNumber(prefix + "" + req.getMobile()),new PhoneNumber("+15206399497"),
+//                    "This is your One time password to login to Patel Water supply system " + otp).create();
         }catch(Exception e){
             System.out.println("from exception");
             System.out.println(prefix + "" + req.getMobile());
@@ -153,6 +163,11 @@ public class RestController {
             }
           //  set user object to it then save order and return success
         System.out.println("return success  result from otp generation");
+        RestTemplate restTemplate = new RestTemplate();
+        String fooResourceUrl
+                = "https://notification-node.herokuapp.com/api/sendnots";
+        ResponseEntity<String> response
+                = restTemplate.getForEntity(fooResourceUrl , String.class);
         return new SuccessRes("true");
     }
 
@@ -382,4 +397,8 @@ public class RestController {
 //    }
 
 
+//    @PostMapping("/subs")
+//    public void subs(@RequestBody Object obj){
+//        System.out.println(obj.);
+//    }
 }
